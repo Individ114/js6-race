@@ -122,7 +122,7 @@ h1 {
       background-size: 100%;
       animation: drive 999999s linear infinite;
       background-position: 0px 0px;
-      animation-play-state: paused;
+      
 }
 @keyframes drive {
       0% {
