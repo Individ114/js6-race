@@ -116,12 +116,12 @@ h1 {
       height: 100%;
       background-image: url("fon1.jpg");
       background-repeat: repeat-x;
-      background-size: 300%;
+      background-size: 265%;
       -moz-animation: drive 999s linear infinite;
       -ms-animation: drive 999s linear infinite;
       -webkit-animation: drive 999s linear infinite;
       -o-animation: drive 999s linear infinite;
-      animation: drive 999s linear infinite;
+      animation: drive 500s linear infinite;
       background-position: 0px 0px;
       -moz-animation-play-state: paused;
       -ms-animation-play-state: paused;
@@ -136,14 +136,17 @@ h1 {
 }
 @media (max-width: 1440px) {
       .fon {
+            background-size: 300%;
       }
 }
 @media (max-width: 1024px) {
       .fon {
+            background-size: 370%;
       }
 }
 @media (max-width: 768px) {
       .fon {
+            background-size: 470%;
       }
 }
 @media (max-width: 425px) {
@@ -165,6 +168,16 @@ h1 {
             font-size: 1rem;
       }
       .fon {
-            background-position: bottom;
+            background-size: 750%;
+      }
+}
+@media (max-width: 375px) {
+      .fon {
+            background-size: 850%;
+      }
+}
+@media (max-width: 320px) {
+      .fon {
+            background-size: 950%;
       }
 }
