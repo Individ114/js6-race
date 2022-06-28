@@ -13,31 +13,32 @@
             <title>Document</title>
       </head>
       <body>
-            <div class="button" id="start">
-                  <a
-                        id="animStart"
-                        href="#"
-                        onclick="new Audio('starting-car_fjook64d.mp3').play(); return false;"
-                        >START</a
-                  >
+            <div class="wrapper fon" id="fon">
+                  <div class="button" id="start">
+                        <a
+                              id="animStart"
+                              href="#"
+                              onclick="new Audio('starting-car_fjook64d.mp3').play(); return false;"
+                              >START</a
+                        >
+                  </div>
+                  <div class="button2" id="stop">
+                        <a
+                              id="animStop"
+                              href="#"
+                              onclick="new Audio('tire-screech_m1b8kfv_.mp3').play(); return false;"
+                              >STOP</a
+                        >
+                  </div>
+                  <div class="button3" id="reload">
+                        <a
+                              id="animStopReload"
+                              href="#"
+                              onclick="new Audio('f943cd036a1820c.mp3').play(); return false;"
+                              >RELOAD</a
+                        >
+                  </div>
             </div>
-            <div class="button2" id="stop">
-                  <a
-                        id="animStop"
-                        href="#"
-                        onclick="new Audio('tire-screech_m1b8kfv_.mp3').play(); return false;"
-                        >STOP</a
-                  >
-            </div>
-            <div class="button3" id="reload">
-                  <a
-                        id="animStopReload"
-                        href="#"
-                        onclick="new Audio('f943cd036a1820c.mp3').play(); return false;"
-                        >RELOAD</a
-                  >
-            </div>
-            <div class="fon" id="fon"></div>
             <script>
                   var Car1 = function (x, y) {
                         //  Конструктор
