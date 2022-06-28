@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1"
+            />
+
+            <link rel="stylesheet" href="style.css" />
+            <script src="jquery.js"></script>
+            <title>Document</title>
+      </head>
+      <body>
+            <div class="button" id="start">
+                  <a
+                        id="animStart"
+                        href="#"
+                        onclick="new Audio('starting-car_fjook64d.mp3').play(); return false;"
+                        >START</a
+                  >
+            </div>
+            <div class="button2" id="stop">
+                  <a
+                        id="animStop"
+                        href="#"
+                        onclick="new Audio('tire-screech_m1b8kfv_.mp3').play(); return false;"
+                        >STOP</a
+                  >
+            </div>
+            <div class="button3" id="reload">
+                  <a
+                        id="animStopReload"
+                        href="#"
+                        onclick="new Audio('f943cd036a1820c.mp3').play(); return false;"
+                        >RELOAD</a
+                  >
+            </div>
+            <div class="fon" id="fon"></div>
+            <script>
+                  var Car1 = function (x, y) {
+                        //  Конструктор
+                        (this.x = x), (this.y = y);
+                        this.speed = 1;
+                        this.draw();
+                  };
+                  var Car2 = function (x, y) {
+                        //  Конструктор
+                        (this.x = x), (this.y = y);
+                        this.speed = 1;
+                        this.draw();
+                  };
+
+                  Car1.prototype.draw = function () {
+                        //   Рисуем машину
+                        var carHtml1 = `<img class="auto" src="auto1.png">`; //  Строка с html кодом
+                        this.carElement1 = $(carHtml1); //  передаём carHtml в функцию $, которая преобразует HTML в jQuery-элемент
+                        this.carElement1.css({
+                              //  вызываем метод css, чтобы задать изображению машины координаты
+                              position: "absolute",
+
+                              left: this.x,
+                              top: this.y,
+                        });
+                        $("body").append(this.carElement1); //  с помощью jQuery добавляем carElement к элементу body нашего HTML-документа
+                  };
+                  Car2.prototype.draw = function () {
+                        //   Рисуем машину
+                        var carHtml2 = `<img class="auto" src="auto2.png">`; //  Строка с html кодом
+                        this.carElement2 = $(carHtml2); //  передаём carHtml в функцию $, которая преобразует HTML в jQuery-элемент
+                        this.carElement2.css({
+                              //  вызываем метод css, чтобы задать изображению машины координаты
+                              position: "absolute",
+
+                              left: this.x,
+                              top: this.y,
+                        });
+                        $("body").append(this.carElement2); //  с помощью jQuery добавляем carElement к элементу body нашего HTML-документа
+                  };
+
+                  Car1.prototype.moveRight = function () {
+                        this.x += Math.ceil(Math.random() * 10);
+                        this.carElement1.css({
+                              left: this.x,
+                              top: this.y,
+                        });
+                  };
+                  Car2.prototype.moveRight = function () {
+                        this.x += Math.ceil(Math.random() * 10);
+                        this.carElement2.css({
+                              left: this.x,
+                              top: this.y,
+                        });
+                  };
+
+                  var auto1 = new Car1(0, 120); //  Создание нового объекта Car
+                  var auto2 = new Car2(0, 180);
+
+                  var startId;
+
+                  const start = function () {
+                        startId = setInterval(function () {
+                              auto1.moveRight();
+                              auto2.moveRight();
+                        }, 100);
+                  };
+                  const stop = function () {
+                        clearInterval(startId);
+                  };
+                  const reload = function () {
+                        setTimeout(function () {
+                              location.reload();
+                        }, 1200);
+                  };
+
+                  $("#start").click(start);
+                  $("#stop").click(stop);
+                  $("#reload").click(reload);
+                  $("#reload").click(stop);
+
+                  $(function () {
+                        var flag = false;
+                        $("#animStart").on("click", function () {
+                              var action = (flag = !flag)
+                                    ? "running"
+                                    : "running";
+                              $("#fon").css({
+                                    "animation-play-state": action,
+                              });
+                        });
+                  });
+                  $(function () {
+                        var flag = false;
+                        $("#animStop").on("click", function () {
+                              action = (flag = !flag) ? "paused" : "paused";
+                              $("#fon").css({
+                                    "animation-play-state": action,
+                              });
+                        });
+                  });
+                  $(function () {
+                        var flag = false;
+                        $("#animStopReload").on("click", function () {
+                              action = (flag = !flag) ? "paused" : "paused";
+                              $("#fon").css({
+                                    "animation-play-state": action,
+                              });
+                        });
+                  });
+
+                  // var drawCar = function (car) {
+                  //       //   Рисуем машину
+                  //       var carHtml = `<img class="auto" src="auto.png">`; //  Строка с html кодом
+                  //       var carElement = $(carHtml); //  передаём carHtml в функцию $, которая преобразует HTML в jQuery-элемент
+                  //       carElement.css({
+                  //             //  вызываем метод css, чтобы задать изображению машины координаты
+                  //             position: "absolute",
+
+                  //             left: car.x,
+                  //             top: car.y,
+                  //       });
+                  //       $("body").append(carElement); //  с помощью jQuery добавляем carElement к элементу body нашего HTML-документа
+                  // };
+
+                  // drawCar(auto1);
+                  // drawCar(auto2);
+                  // drawCar(auto3);
+
+                  // var x = 1;
+                  // var y = 1;
+
+                  // var result = [];
+                  // var score = 0;
+
+                  // while (y < 4000000) {
+                  //       y = x + y;
+                  //       x = y - x;
+                  //       result.push(y);
+                  //       if (y < 4000000 && y % 2 === 0) {
+                  //             score = score + y;
+                  //       }
+                  // }
+
+                  // console.log(result + "/" + score);
+
+                  // var position = 333;
+                  // var direction = "направо";
+
+                  // function moveHeadingFunc() {
+                  //   if (direction === "направо") {
+                  //     $("#heading1").offset({ left: position, top: 500 });
+                  //     position += 3;
+                  //     if (position > 421) {
+                  //       position = 45;
+                  //       direction = "вниз";
+                  //     }
+                  //   } else if (direction === "вниз") {
+                  //     $("#heading1").offset({ top: position });
+                  //     position += 3;
+                  //     if (position > 344) {
+                  //       position = 1005;
+                  //       direction = "влево";
+                  //     }
+                  //   } else if (direction === "влево") {
+                  //     $("#heading1").offset({ left: position });
+                  //     position -= 3;
+                  //     if (position < 23) {
+                  //       position = 600;
+                  //       direction = "вверх";
+                  //     }
+                  //   } else if (direction === "вверх") {
+                  //     $("#heading1").offset({ top: position });
+                  //     position -= 3;
+                  //     if (position < 500) {
+                  //       position = 855;
+                  //       direction = "направо";
+                  //     }
+                  //   }
+                  // }
+
+                  // var moveHeading = setInterval(moveHeadingFunc, 20);
+
+                  // var x = 0;
+                  // function speed() {
+                  //   clearInterval(moveHeading);
+                  //   x++;
+                  //   if (x > 5) {
+                  //     $("#heading1").text("Stop");
+                  //   } else {
+                  //     moveHeading = setInterval(moveHeadingFunc, 15);
+                  //     $("#heading1").text(`click: ${x}`);
+                  //   }
+                  // }
+
+                  // $("#heading1").click(speed);
+
+                  // ///////////////////////////////////////////////////////////////////////////////////////
+
+                  // var nitro = plusFunc(0);
+                  // function plusFunc(plus) {
+                  //   return (plus += 1);
+                  // }
+                  // var intervalLength = 1;
+
+                  // var direction = "направо";
+
+                  // var randomLeft = number(400);
+                  // function number(x) {
+                  //   return [Math.floor(Math.random() * x)];
+                  // }
+                  // var randomTop = number(800);
+                  // function number(x) {
+                  //   return [Math.floor(Math.random() * x)];
+                  // }
+                  // var randomEndLeft = number(400);
+                  // function number(x) {
+                  //   return [Math.floor(Math.random() * x)];
+                  // }
+                  // var randomEndTop = number(800);
+                  // function number(x) {
+                  //   return [Math.floor(Math.random() * x)];
+                  // }
+                  // function moveHeadingFunc() {
+                  //   if (direction === "направо") {
+                  //     $("#heading1").offset({ left: randomLeft });
+                  //     randomLeft = Number(randomLeft);
+                  //     randomLeft += nitro;
+                  //     if (randomLeft > randomEndLeft) {
+                  //       randomTop = number(800);
+                  //       direction = "вниз";
+                  //     }
+                  //   } else if (direction === "вниз") {
+                  //     $("#heading1").offset({ top: randomTop });
+                  //     randomTop = Number(randomTop);
+                  //     randomTop += nitro;
+                  //     if (randomTop > randomEndTop) {
+                  //       randomLeft = number(400);
+                  //       direction = "влево";
+                  //     }
+                  //   } else if (direction === "влево") {
+                  //     $("#heading1").offset({ left: randomLeft });
+                  //     randomLeft = Number(randomLeft);
+                  //     randomLeft -= nitro;
+                  //     if (randomLeft < randomEndLeft) {
+                  //       randomTop = number(800);
+                  //       direction = "вверх";
+                  //     }
+                  //   } else if (direction === "вверх") {
+                  //     $("#heading1").offset({ top: randomTop });
+                  //     randomTop = Number(randomTop);
+                  //     randomTop -= nitro;
+                  //     if (randomTop < randomEndTop) {
+                  //       randomLeft = number(400);
+                  //       direction = "направо";
+                  //     }
+                  //   }
+                  // }
+
+                  // var intervalID = setInterval(moveHeadingFunc, intervalLength);
+
+                  // var x = 0;
+                  // $("#heading1").click(function () {
+                  //   clearInterval(intervalID);
+                  //   nitro += 0.15;
+                  //   x++;
+                  //   if (x > 9) {
+                  //     $("#heading1").text("Stop");
+                  //   } else {
+                  //     intervalID = setInterval(moveHeadingFunc, intervalLength);
+                  //     $("#heading1").text(`${x}`);
+                  //   }
+                  // });
+
+                  // ///////////////////////////////////////////////////////////////////////////////////////
+
+                  // function stop() {
+                  //   clearInterval(moveHeading);
+                  // }
+
+                  // $("#heading1").click(stop);
+
+                  // clearInterval(moveHeading);
+
+                  // $("html").mousemove(function () {
+                  //   $("#heading1").offset({
+                  //     left: event.pageX,
+                  //     top: event.pageY,
+                  //   });
+                  // });
+
+                  // var leftOffset = 0;
+
+                  // function clickHandler1() {
+                  //   // console.log("Click! " + event.pageX + " " + event.pageY);
+                  //   $("#heading1").offset({ left: leftOffset });
+                  //   leftOffset++;
+                  //   setTimeout(clickHandler1, 30);
+                  //   if (leftOffset > 200) {
+                  //     leftOffset = 0;
+                  //   }
+                  // }
+                  // $("#heading1").click(clickHandler1);
+
+                  // function clickHandler2(fgfg) {
+                  //   console.log("Click! " + event.pageX + " " + event.pageY);
+                  //   $("#heading2").fadeOut(1000).fadeIn(1000);
+                  // }
+
+                  // $("#heading2").click(clickHandler2);
+
+                  // var leftOffset1 = 0;
+                  // var leftOffset2 = 0;
+
+                  // function leftHeading1() {
+                  //   $("#heading1").offset({ left: leftOffset1 });
+                  //   leftOffset1 += 16;
+                  //   if (leftOffset1 > 200) {
+                  //     leftOffset1 = 0;
+                  //   }
+                  // }
+                  // function leftHeading2() {
+                  //   $("#heading2").offset({ left: leftOffset2 });
+                  //   leftOffset2 += 1;
+                  //   if (leftOffset2 > 200) {
+                  //     leftOffset2 = 0;
+                  //   }
+                  // }
+                  // setInterval(leftHeading1, 150);
+                  // setInterval(leftHeading2, 50);
+
+                  // "use strict";
+                  // if (2 > 1) {
+                  //   var x = function () {
+                  //     console.log("OK");
+                  //   };
+                  // }
+                  // x();
+
+                  // String.prototype.replaceAt = function (index, replacement) {
+                  //   return (
+                  //     this.substr(0, index) +
+                  //     replacement +
+                  //     this.substr(index + replacement.length)
+                  //   );
+                  // };
+
+                  // var array = [];
+
+                  // function photoFunc() {
+                  //   var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+                  //   var photo1 = "<img src='http://picsum.photos/100/100'/>";
+                  //   for (i = 0; i < 10; i++) {
+                  //     array[i] = photo1.replaceAt(37, number[i]);
+                  //   }
+                  // }
+                  // photoFunc();
+
+                  // function messageConsole() {
+                  //   $("body").append(array[Math.floor(Math.random() * array.length)]);
+                  //   var intervalId = setTimeout(messageConsole, 1000);
+                  // }
+                  // var intervalId = setTimeout(messageConsole, 1000);
+
+                  // clearTimeout(intervalId);
+
+                  // var headingElement = document.getElementById("heading");
+                  // headingElement.innerHTML = "wrwrwrwrwr";
+
+                  // $("h1").fadeTo(1000, 0.5).fadeOut(1000).delay(5000).fadeIn(1000);
+
+                  // for (i = 0; i < 5; i++) {
+                  //   var fadeTime = (i + 1) * 500;
+                  //   $("h1").fadeOut(fadeTime).fadeIn(fadeTime);
+                  // }
+
+                  // var friends = ["Жек", "Тёма", "Пенга"];
+                  // for (i = 0; i < friends.length; i++) {
+                  //   $("body").append(`<p> ${friends[i]} лучший </p>`);
+                  // }
+                  // $("h1").text("My friends").hide().fadeIn(1000);
+                  // $("p").hide().fadeIn(1000);
+
+                  // var newHeadingElement = prompt(`Write a new heading`);
+                  // $("#heading").text(newHeadingElement);
+
+                  // $("body").append("<p>Magic</p>");
+                  // $("body").append("<img src='http://picsum.photos/100/100'/>");
+                  // $("body").append("<img src='http://picsum.photos/150/100'/>");
+
+                  // for (i = 0; i < 3; i++) {
+                  //   var word = prompt(`write a word:`);
+                  //   $("body").append("<p>" + word + "</p>");
+                  // }
+
+                  // $("h1").text("Текст что с тобой?").fadeOut(1000).show(1000).hide(1000);
+                  // var headingElement = document.getElementById("heading");
+                  // var newHeading = prompt(`To write new heading`);
+                  // headingElement.innerHTML = newHeading;
+                  // var textElement = document.getElementById("text");
+                  // var newTextElement = prompt(`To write new text for page`);
+                  // textElement.innerHTML = newTextElement;
+
+                  // function wordFun() {
+                  //   var words = ["лот", "лото", "лотос"];
+                  //   return words[Math.floor(Math.random() * words.length)];
+                  // }
+
+                  // function resultFun(word) {
+                  //   var x = [];
+                  //   for (i = 0; i < word.length; i++) {
+                  //     x[i] = "_";
+                  //   }
+                  //   return x;
+                  // }
+
+                  // function answerFun() {
+                  //   var x = prompt(`Letter? ${result}`);
+                  //   return x;
+                  // }
+
+                  // function inspectFun(answer, word, result) {
+                  //   for (i = 0; i < word.length; i++) {
+                  //     if (answer === word[i] && result[i] !== word[i]) {
+                  //       result[i] = answer;
+                  //       score--;
+                  //     }
+                  //   }
+                  // }
+
+                  // var word = wordFun();
+                  // var result = resultFun(word);
+                  // var score = word.length;
+
+                  // alert(word);
+                  // alert(result);
+
+                  // while (score > 0) {
+                  //   var answer = answerFun();
+                  //   if (answer === null) {
+                  //     break;
+                  //   } else if (answer.length !== 1) {
+                  //     alert(`One letter!`);
+                  //   }
+                  //   var inspect = inspectFun(answer, word, result);
+                  // }
+
+                  // var result = [];
+
+                  // for (i = 0; i < word.length; i++) {
+                  //   result[i] = "_";
+                  // }
+
+                  // var score = word.length;
+
+                  // while (score > 0) {
+                  //   var answer = prompt(`Letter? ${result}`);
+                  //   if (answer === null) {
+                  //     break;
+                  //   } else if (answer.length !== 1) {
+                  //     alert(`One letter!`);
+                  //   } else {
+                  //     for (j = 0; j < word.length; j++) {
+                  //       if (word[j] === answer && word[j] !== result[j]) {
+                  //         result[j] = answer;
+                  //         score--;
+                  //       }
+                  //     }
+                  //   }
+                  // }
+                  // alert(`Goog job`);
+
+                  // for (i = 1; i <= 50; i++) {
+                  //   console.log(i);
+                  // }
+
+                  // var x = "123456";
+
+                  // if (
+                  //   Number(x[0]) + Number(x[1]) + Number(x[2]) ==
+                  //   Number(x[3]) + Number(x[4]) + Number(x[5])
+                  // ) {
+                  //   alert(`yes`);
+                  // } else {
+                  //   alert(`no`);
+                  // }
+
+                  // var month = 12;
+                  // if (month < 3 || month === 12) {
+                  //   alert("зима");
+                  // } else if (month < 6) {
+                  //   alert("весна");
+                  // } else if (month < 9) {
+                  //   alert("лето");
+                  // } else if (month < 12) {
+                  //   alert("осень");
+                  // } else {
+                  //   alert("error");
+                  // }
+
+                  // function wordFun() {
+                  //   var words = ["лот", "лото", "лотос"];
+                  //   return words[Math.floor(Math.random() * words.length)];
+                  // }
+
+                  // function rezultateFun() {
+                  //   var x = [];
+                  //   for (var i = 0; i < word.length; i++) {
+                  //     x[i] = "_";
+                  //   }
+                  //   return x;
+                  // }
+
+                  // function scoreFun(word) {
+                  //   return word.length;
+                  // }
+
+                  // function show(score) {
+                  //   alert("Осталось отгадать букв: " + score);
+                  // }
+
+                  // function variantFun() {
+                  //   return prompt("Укажите букву: " + rezultate);
+                  // }
+
+                  // function overFor(word, variant, rezultate) {
+                  //   for (j = 0; j < word.length; j++) {
+                  //     if (word[j] === variant && word[j] != rezultate[j]) {
+                  //       rezultate[j] = variant;
+                  //       score--;
+                  //     }
+                  //   }
+                  // }
+
+                  // var word = wordFun();
+                  // var rezultate = rezultateFun(word);
+                  // var score = scoreFun(word);
+
+                  // while (0 < score) {
+                  //   show(score);
+                  //   var variant = variantFun();
+
+                  //   if (variant === null) {
+                  //     break;
+                  //   } else if (variant.length !== 1) {
+                  //     alert("Одну букву!");
+                  //   } else {
+                  //     var over = overFor(word, variant, rezultate);
+                  //   }
+                  // }
+
+                  //     var name = prompt("Whot is you name?");
+                  //     function hello(name) {
+                  //       alert("Hello, " + name);
+                  //     }
+                  //     hello(name);
+
+                  //     function OK(number) {
+                  //       for (i = 1; i < number + 1; i++) {
+                  //         console.log(i + ". OK");
+                  //       }
+                  //     }11
+                  //     var variantOne = prompt("Сделаем сложение. Укажите первую цифру:");
+                  //     var variantTwo = prompt("Продолжаем сложение. Укажите вторую цифру:");
+
+                  //     function number(variantOne, variantTwo) {
+                  //       var score = variantOne + variantTwo;
+                  //       alert(score);
+                  //     }
+                  //     number(variantOne, variantTwo);
+
+                  //     function randomWord() {
+                  //       var words = [
+                  //         "принадлежать",
+                  //         "ласковый",
+                  //         "сообразить",
+                  //         "бабушка",
+                  //         "смотреть",
+                  //         "песня",
+                  //         "подготовка",
+                  //         "шаг",
+                  //         "поручить",
+                  //         "деревенский",
+                  //         "мужик",
+                  //         "край",
+                  //         "камень",
+                  //         "усталый",
+                  //         "офицер",
+                  //         "профессиональный",
+                  //         "запад",
+                  //         "замолчать",
+                  //         "время",
+                  //         "бросаться",
+                  //       ];
+                  //       return words[Math.floor(Math.random() * words.length)];
+                  //     }
+                  //     alert(randomWord());
+
+                  //     function randomWord(words) {
+                  //       return words[Math.floor(Math.random() * words.length)];
+                  //     }
+
+                  //     var numbers = ["one", "two", "three"];
+                  //     var colors = ["red", "green", "blue"];
+                  //     alert(randomWord(colors));
+
+                  //     function fiveLetterName(name) {
+                  //       if (name.length < 5) {
+                  //         return;
+                  //       } else {
+                  //         alert("Пятая буква вашего имени " + name[4]);
+                  //       }
+                  //     }
+                  //     fiveLetterName("Roman");
+
+                  //     function one(arg1, arg2) {
+                  //       return arg1 * arg2;
+                  //     }
+                  //     function two(arg1, arg2) {
+                  //       return arg1 + arg2;
+                  //     }
+                  //     alert(two(one(2, 3), 4));
+
+                  // function one(x, y) {
+                  //   {
+                  //     if (x.length !== y.length) {
+                  //       return false;
+                  //     }
+                  //     for (i = 0; i < x.length; i++) {
+                  //       if (x[i] !== y[i]) {
+                  //         return false;
+                  //       }
+                  //     }
+                  //     return true;
+                  //   }
+                  // }
+
+                  // alert(one([1, 2], [1, 2, 4]));
+
+                  // var pickWord = function () {
+                  //   // Возвращает случайно выбранное слово
+                  //   var words = ["программа", "макака", "прекрасный", "оладушек"];
+
+                  //   return words[Math.floor(Math.random() * words.length)];
+                  // };
+
+                  // var setupAnswerArray = function (word) {
+                  //   // Возвращает итоговый массив для заданного слова word
+                  //   var answerArray = [];
+                  //   for (var i = 0; i < word.length; i++) {
+                  //     answerArray[i] = "_";
+                  //   }
+
+                  //   return answerArray;
+                  // };
+
+                  // var showPlayerProgress = function (answerArray) {
+                  //   // С помощью alert отображает текущее состояние игры
+                  //   alert(answerArray.join(" "));
+                  // };
+
+                  // var getGuess = function () {
+                  //   // Запрашивает ответ игрока с помощью prompt
+                  //   return prompt("Угадайте букву, или нажмите Отмена для выхода из игры.");
+                  // };
+
+                  // var updateGameState = function (guess, word, answerArray) {
+                  //   // Обновляет answerArray согласно ответу игрока (guess)
+                  //   // возвращает число, обозначающее, сколько раз буква guess
+                  //   // встречается в слове, чтобы можно было обновить значение
+                  //   // remainingLetters
+                  //   var appearances = 0;
+                  //   for (var j = 0; j < word.length; j++) {
+                  //     if (word[j] === guess) {
+                  //       answerArray[j] = guess;
+                  //       appearances++;
+                  //     }
+                  //   }
+
+                  //   return appearances;
+                  // };
+
+                  // var showAnswerAndCongratulatePlayer = function (answerArray) {
+                  //   // С помощью alert показывает игроку отгаданное слово
+                  //   // и поздравляет его с победой
+                  //   showPlayerProgress(answerArray);
+                  //   alert("Отлично! Было загадано слово " + answerArray.join(""));
+                  // };
+
+                  // // /////////////////////////////////////////////////ВИСЕЛИЦА
+
+                  // // word: загаданное слово
+                  // var word = pickWord();
+                  // // answerArray: итоговый массив
+                  // var answerArray = setupAnswerArray(word);
+                  // // remainingLetters: сколько букв осталось угадать
+                  // var remainingLetters = word.length;
+
+                  // while (remainingLetters > 0) {
+                  //   showPlayerProgress(answerArray);
+                  //   // guess: ответ игрока
+                  //   var guess = getGuess();
+                  //   if (guess === null) {
+                  //     break;
+                  //   } else if (guess.length !== 1) {
+                  //     alert("Пожалуйста, введите одиночную букву.");
+                  //   } else {
+                  //     // correctGuesses: количество открытых букв
+                  //     var correctGuesses = updateGameState(guess, word, answerArray);
+                  //     remainingLetters -= correctGuesses;
+                  //   }
+                  // }
+
+                  // showAnswerAndCongratulatePlayer(answerArray);
+            </script>
+      </body>
+</html>
